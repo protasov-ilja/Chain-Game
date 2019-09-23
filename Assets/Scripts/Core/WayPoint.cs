@@ -9,6 +9,10 @@ namespace ProjectName.Core
         public DirectionType Direction { get; private set; }
         public Vector2 GridPosition { get; private set; }
 
+        public ChainBlock Block { get; set; }
+
+        public bool IsEmpty => Block != null;
+        
         public void Initialize(Vector2 gridPosition, DirectionType direction)
         {
             Direction = direction;
