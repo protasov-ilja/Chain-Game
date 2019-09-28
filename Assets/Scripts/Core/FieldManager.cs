@@ -343,6 +343,47 @@ namespace ProjectName.Core
             return minDistanceCell;
         }
 
+        public bool CheckForWin(List<BlockDataDTO> winHorizontal, List<BlockDataDTO> winVertical)
+        {
+            foreach (var data in winHorizontal)
+            {
+                var x = data.Position.x;
+                var y = data.Position.y;
+                if (!_horizontalGrid[y][x].IsEmpty)
+                {
+                    if (!(_horizontalGrid[y][x].Block.SecondDirection == data.ConnectorsState.y
+                        && _horizontalGrid[y][x].Block.FirstDirection == data.ConnectorsState.x))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            
+            foreach (var data in winVertical)
+            {
+                var x = data.Position.x;
+                var y = data.Position.y;
+                if (!_verticalGrid[y][x].IsEmpty)
+                {
+                    if (!(_verticalGrid[y][x].Block.SecondDirection == data.ConnectorsState.y
+                          && _verticalGrid[y][x].Block.FirstDirection == data.ConnectorsState.x))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private Vector2Int? GetNearestHorizontalCell(ChainBlock block)
         {
             var minDistance = float.MaxValue;
