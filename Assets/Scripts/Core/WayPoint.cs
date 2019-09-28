@@ -8,19 +8,30 @@ namespace ProjectName.Core
         private RectTransform _rect => (RectTransform) transform;
         
         public DirectionType Direction { get; private set; }
-        public Vector2 GridPosition { get; private set; }
+        public Vector2Int GridPosition { get; private set; }
 
-        public ChainBlock Block { get; set; }
+        public ChainBlock Block
+        {
+            get => _block;
+            set
+            {
+                IsEmpty = false;
+                _block = value;
+            }
+        }
 
+        private ChainBlock _block;
         private bool _isEmpty = true;
 
         public bool IsEmpty
         {
-            get => Block == null && _isEmpty;
+            get => _isEmpty;
             set => _isEmpty = value;
         }
 
-        public void Initialize(Vector2 gridPosition, DirectionType direction)
+        public bool HasBlock => Block != null;
+
+        public void Initialize(Vector2Int gridPosition, DirectionType direction)
         {
             Direction = direction;
             GridPosition = gridPosition;
