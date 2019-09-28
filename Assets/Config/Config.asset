@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wayPointPrefab: {fileID: 4990714737925738694, guid: cce0a737542e45943b7be2614dbb7766,
     type: 3}
-  _chainBlock: {fileID: 1217501271235839648, guid: e7bce82b6453aa241a60734cfc1edbbb,
+  _chainBlock: {fileID: 1122815202246165062, guid: e7bce82b6453aa241a60734cfc1edbbb,
     type: 3}

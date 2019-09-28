@@ -20,25 +20,23 @@ namespace ProjectName.Core
             CreateVerticalGrid();
         }
 
-        private void Update()
-        {
-            
-        }
-
         private void CreateHorizontalGrid()
         {
             _horizontalGrid = new List<WayPoint>();
             var pos = _cornerPoint.position;
-            var blockTransform = _config.ChainBlockPrefab.transform;
-            var startXOffset = blockTransform.lossyScale.x / 2;
-            var startYOffset = blockTransform.lossyScale.y / 2;
-            var cellSize = blockTransform.lossyScale.y;
+            var blockTransform = _config.ChainBlockPrefab.Rect.rect;
+            var startXOffset = blockTransform.width / 2;
+            var startYOffset = blockTransform.height / 2;
+            var cellSize = blockTransform.height;
             for (var i = 0; i < 4; ++i)
             {
                 for (var j = 0; j < 3; ++j)
                 {
-                    var point = Instantiate(_config.WayPointPrefab, new Vector3(startXOffset + pos.x + cellSize * j, startYOffset + pos.y + cellSize * i, pos.z), Quaternion.identity);
+                    var point = Instantiate(_config.WayPointPrefab, transform);
+                    point.transform.position = new Vector3(startXOffset + pos.x + cellSize * j,
+                        startYOffset + pos.y + cellSize * i, pos.z);
                     point.Initialize(new Vector2(j, i), DirectionType.Horizontal);
+                    
                     _horizontalGrid.Add(point);
                 }
             }
@@ -48,15 +46,20 @@ namespace ProjectName.Core
         {
             _verticalGrid = new List<WayPoint>();
             var pos = _cornerPoint.position;
-            var blockTransform = _config.ChainBlockPrefab.transform;
-            var startXOffset = blockTransform.lossyScale.x / 4;
-            var startYOffset = blockTransform.lossyScale.y;
-            var cellSize = blockTransform.lossyScale.y;
+            
+            var blockTransform = _config.ChainBlockPrefab.Rect.rect;
+            Debug.Log(blockTransform.width);
+            var startXOffset = blockTransform.width / 4;
+            var startYOffset = blockTransform.height;
+            var cellSize = blockTransform.height;
             for (var i = 0; i < 3; ++i)
             {
                 for (var j = 0; j < 4; ++j)
                 {
-                    var point = Instantiate(_config.WayPointPrefab, new Vector3(startXOffset + pos.x + cellSize * j, startYOffset + pos.y + cellSize * i, pos.z), Quaternion.identity);
+                    var point = Instantiate(_config.WayPointPrefab, transform);
+                    point.transform.position = new Vector3(startXOffset + pos.x + cellSize * j, startYOffset + pos.y + cellSize * i,
+                        pos.z);
+                    
                     point.Initialize(new Vector2(j, i), DirectionType.Vertical);
 
                     _verticalGrid.Add(point);
@@ -80,6 +83,40 @@ namespace ProjectName.Core
             }
 
             return nearestPosition;
+        }
+
+        public void ConnectToBlock(ChainBlock block)
+        {
+            var x = 3;
+            var y = 4;
+            if (block.Direction == DirectionType.Horizontal)
+            {
+                for (var i = 0; i < _horizontalGrid.Count; ++i)
+                {
+                    if (_horizontalGrid[i].IsEmpty)
+                    {
+                        var pos = _horizontalGrid[i].transform.position;
+                        Debug.Log(pos);
+                        _horizontalGrid[i].Block = block;
+                        block.transform.position = new Vector3(pos.x, pos.y, block.transform.position.z);
+                        break;
+                    }
+                }
+            }
+            else if (block.Direction == DirectionType.Vertical)
+            {
+                for (var i = 0; i < _horizontalGrid.Count; ++i)
+                {
+                    if (_verticalGrid[i].IsEmpty)
+                    {
+                        var pos = _verticalGrid[i].transform.position;
+                        Debug.Log(pos);
+                        _verticalGrid[i].Block = block;
+                        block.transform.position = new Vector3(pos.x, pos.y, block.transform.position.z);
+                        break;
+                    }
+                }
+            }
         }
     }
 }
