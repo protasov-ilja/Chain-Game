@@ -1,23 +1,56 @@
-﻿using ProjectName.Core.Enums;
+﻿using System;
+using ProjectName.Core.Enums;
 using UnityEngine;
 
 namespace ProjectName.Core
 {
-    public class WayPoint : MonoBehaviour
+    public class WayPoint : MonoBehaviour, IConnector
     {
         private RectTransform _rect => (RectTransform) transform;
         
         public DirectionType Direction { get; private set; }
         public Vector2Int GridPosition { get; private set; }
 
+        private int _connectionsCount;
+
+        public event Action<Vector2Int> OnDisconnect;
+
+        public int ConnectionsCount
+        {
+            get => _connectionsCount;
+            set
+            {
+                _connectionsCount = value;
+                IsEmpty = _connectionsCount <= 0;
+            }
+        }
+
         public ChainBlock Block
         {
             get => _block;
             set
             {
-                IsEmpty = false;
+                IsEmpty = value == null;
                 _block = value;
             }
+        }
+
+        public Transform Transform => transform;
+
+        public void Connect(ChainBlock block)
+        {
+            if (Block != block)
+            {
+                block.Connector = this;
+                Block = block;
+                block.ConnectionType = ConnectionType.ToField;
+            }
+        }
+
+        public void Disconnect(ChainBlock block)
+        {
+            Block = null;
+            OnDisconnect?.Invoke(GridPosition);
         }
 
         private ChainBlock _block;

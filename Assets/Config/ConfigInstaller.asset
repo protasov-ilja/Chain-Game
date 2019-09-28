@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: ConfigInstaller
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: ff1aac42bbbc74a498617cf43495fa0c, type: 2}
+  _gameManager: {fileID: 3858450719749683681, guid: 7b04cbf52ecf77e46b1022acf9bae59f,
+    type: 3}

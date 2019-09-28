@@ -5,26 +5,29 @@ using UnityEngine;
 
 namespace ProjectName.UI
 {
-    public class BlocksPanel : MonoBehaviour
+    public class BlocksPanel : MonoBehaviour, IConnector
     {
         [SerializeField] private ChainBlock _verticalBlockPrefab;
         [SerializeField] private ChainBlock _horizontalBlockPrefab;
         
         private List<ChainBlock> _blocks = new List<ChainBlock>();
 
-        public void GenerateBlocks(IEnumerable<ChainBlock> blocks)
+        public Transform Transform => transform;
+        
+        public void AddBlock(ChainBlock block)
         {
-            foreach (var block in blocks)
-            {
-                if (block.Direction == DirectionType.Horizontal)
-                {
-                    _blocks.Add(Instantiate(_horizontalBlockPrefab, transform));
-                }
-                else if (block.Direction == DirectionType.Vertical)
-                {
-                    _blocks.Add(Instantiate(_verticalBlockPrefab, transform));
-                }
-            }
+            Connect(block);
+        }
+
+        public ChainBlock Block { get; set; }
+        public void Connect(ChainBlock block)
+        {
+            block.Connector = this;
+            block.ConnectionType = ConnectionType.ToPanel;
+        }
+
+        public void Disconnect(ChainBlock block)
+        {
         }
     }
 }

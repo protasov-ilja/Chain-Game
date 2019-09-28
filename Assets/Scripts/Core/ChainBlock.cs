@@ -1,56 +1,125 @@
 ﻿using System;
 using ProjectName.Core.Enums;
+using ProjectName.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace ProjectName.Core
 {
+    public enum ConnectionType
+    {
+        ToPanel,
+        ToField
+    };
+    
     public class ChainBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        public FieldManager DEBUGFiled;
-        public DirectionType DEBUG_DIRECTION;
+        [SerializeField] private bool _isInitial;
+        [SerializeField] private Vector2 _nativeSize;
+        
+        [Header("ForChangeConnectorsState")]
+        [SerializeField] private Vector2Int _connectorsStates;
+
+        private void OnValidate()
+        {
+            SetConnectorsState(_connectorsStates);
+        }
+
+        public FieldManager FieldManager { get; set; }
+        public BlocksPanel BlocksPanel {get; set; }
+
+        public bool IsInitial
+        {
+            set => _isInitial = value;
+            get => _isInitial;
+        }
+        
+        private RectTransform _draggingPlane;
+
+        private IConnector _connector;
 
         public RectTransform Rect => (RectTransform)transform;
-        
-        private RectTransform m_DraggingPlane;
+
+        public IConnector Connector
+        {
+            get => _connector;
+            set
+            {
+                _connector?.Disconnect(this);
+                _connector = value;
+                transform.SetParent(_connector.Transform);
+            }
+        }
+        public ConnectionType ConnectionType { get; set; }
 
         private void Awake()
         {
-            Direction = DEBUG_DIRECTION;
-            m_DraggingPlane = FindObjectOfType<Canvas>().transform as RectTransform;
+            _draggingPlane = FindObjectOfType<Canvas>().transform as RectTransform;
+        }
+        
+        private void Disconnect()
+        {
+            transform.SetParent(_draggingPlane);
+            
+            if (ConnectionType == ConnectionType.ToPanel)
+            {
+                Rect.sizeDelta = new Vector2(_nativeSize.x,_nativeSize.y);
+            }
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            // We have clicked something that can be dragged.
-            // What we want to do is create an icon for this.
+            if (IsInitial) return;
             
+            Disconnect();
+            // We have clicked something that can be dragged.
             transform.SetAsLastSibling();
-
             SetDraggedPosition(eventData);
         }
         
         private void SetDraggedPosition(PointerEventData data)
         {
-            Vector3 globalMousePos;
-            if (RectTransformUtility.ScreenPointToWorldPointInRectangle(m_DraggingPlane, data.position, data.pressEventCamera, out globalMousePos))
+            if (RectTransformUtility.ScreenPointToWorldPointInRectangle(_draggingPlane, data.position, data.pressEventCamera, out var globalMousePos))
             {
                 Rect.position = globalMousePos;
             }
         }
         
         public void OnDrag(PointerEventData data)
-        {
+        { 
+            if (IsInitial) return;
             SetDraggedPosition(data);
         }
-        
+
         public void OnEndDrag(PointerEventData eventData)
         {
-            Debug.Log("this");
-            DEBUGFiled.ConnectToBlock(this);
+            if (IsInitial) return;
+            
+            if (ConnectionType == ConnectionType.ToPanel)
+            {
+                if (FieldManager.ConnectToBlock(this))
+                {
+                    _connector.Connect(this);
+                }
+                else
+                {
+                    _connector.Connect(this);
+                }
+            }
+            else if (ConnectionType == ConnectionType.ToField)
+            {
+                if (Rect.rect.Overlaps((BlocksPanel.Transform as RectTransform).rect))
+                {
+                    BlocksPanel.Connect(this);
+                }
+                else
+                {
+                    _connector.Connect(this);
+                }
+            }
         }
         
-        #region Connection options
+        #region Connectors options
         
         [SerializeField] private GameObject _firstConncetor;
         [SerializeField] private GameObject _secondConnector;
@@ -58,24 +127,39 @@ namespace ProjectName.Core
         private int _firstDirection = 0;
         private int _secondDirection = 0;
         
-        public DirectionType Direction { get; set; }
+        private DirectionType _direction;
+
+        public DirectionType Direction
+        {
+            get => _direction;
+            set
+            {
+                transform.rotation = value == DirectionType.Horizontal ? 
+                    Quaternion.identity : 
+                    Quaternion.Euler(0, 0, 90);
+                
+                _direction = value;
+            }
+        }
+        
         public int FirstDirection => _firstDirection;
         public int SecondDirection => _secondDirection;
 
         private void SetFirstRotation(int direction)
         {
             _firstDirection = direction;
-            _firstConncetor.transform.rotation = Quaternion.Euler(90 * direction, 0, 0);
+            _firstConncetor.transform.localRotation = Quaternion.Euler(0, 0, 90 * direction);
         }
 
         private void SetSecondRotation(int direction)
         {
             _secondDirection = direction;
-            _secondConnector.transform.rotation = Quaternion.Euler(90 * direction, 0, 0);
+            _secondConnector.transform.localRotation = Quaternion.Euler(0, 0, 90 * direction);
         }
 
         public void SetConnectorsState(Vector2Int sideDirections)
         {
+            Debug.Log(sideDirections);
             SetFirstRotation(sideDirections.x);
             SetSecondRotation(sideDirections.y);
         }

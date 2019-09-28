@@ -1,0 +1,209 @@
+{
+    "_winDataVertical": [
+        {
+            "_direction": 1,
+            "_position": {
+                "x": 0,
+                "y": 0
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 1,
+            "_position": {
+                "x": 1,
+                "y": 0
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 1,
+            "_position": {
+                "x": 2,
+                "y": 1
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 1,
+            "_position": {
+                "x": 3,
+                "y": 1
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        }
+    ],
+    "_winDataHorizontal": [
+        {
+            "_direction": 0,
+            "_position": {
+                "x": 2,
+                "y": 0
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 0,
+            "_position": {
+                "x": 0,
+                "y": 2
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 0,
+            "_position": {
+                "x": 0,
+                "y": 3
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 0,
+            "_position": {
+                "x": 2,
+                "y": 3
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        }
+    ],
+    "_initialBlocks": [
+        {
+            "_direction": 0,
+            "_position": {
+                "x": 0,
+                "y": 3
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 0,
+            "_position": {
+                "x": 2,
+                "y": 3
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        }
+    ],
+    "_blocksOnPanel": [
+        {
+            "_direction": 0,
+            "_position": {
+                "x": 2,
+                "y": 0
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 1,
+            "_position": {
+                "x": 2,
+                "y": 1
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 0,
+            "_position": {
+                "x": 2,
+                "y": 3
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 0,
+            "_position": {
+                "x": 0,
+                "y": 3
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 1,
+            "_position": {
+                "x": 1,
+                "y": 0
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 0,
+            "_position": {
+                "x": 0,
+                "y": 2
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 1,
+            "_position": {
+                "x": 3,
+                "y": 1
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 1,
+            "_position": {
+                "x": 0,
+                "y": 0
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 0
+            }
+        }
+    ],
+    "_timeLimit": 30.0
+}
