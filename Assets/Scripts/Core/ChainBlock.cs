@@ -20,11 +20,11 @@ namespace ProjectName.Core
         [Header("ForChangeConnectorsState")]
         [SerializeField] private Vector2Int _connectorsStates;
 
-        private void OnValidate()
-        {
-            SetConnectorsState(_connectorsStates);
-        }
+        private RectTransform _draggingPlane;
+        private IConnector _connector;
 
+        public event Action OnStateChange;
+        
         public FieldManager FieldManager { get; set; }
         public BlocksPanel BlocksPanel {get; set; }
 
@@ -34,12 +34,7 @@ namespace ProjectName.Core
             get => _isInitial;
         }
         
-        private RectTransform _draggingPlane;
-
-        private IConnector _connector;
-
         public RectTransform Rect => (RectTransform)transform;
-
         public IConnector Connector
         {
             get => _connector;
@@ -51,6 +46,11 @@ namespace ProjectName.Core
             }
         }
         public ConnectionType ConnectionType { get; set; }
+        
+        private void OnValidate()
+        {
+            SetConnectorsState(_connectorsStates);
+        }
 
         private void Awake()
         {
@@ -100,6 +100,7 @@ namespace ProjectName.Core
                 if (FieldManager.ConnectToBlock(this))
                 {
                     _connector.Connect(this);
+                    OnStateChange?.Invoke();
                 }
                 else
                 {
@@ -111,6 +112,7 @@ namespace ProjectName.Core
                 if (Rect.rect.Overlaps((BlocksPanel.Transform as RectTransform).rect))
                 {
                     BlocksPanel.Connect(this);
+                    OnStateChange?.Invoke();
                 }
                 else
                 {

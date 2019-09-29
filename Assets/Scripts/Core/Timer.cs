@@ -18,8 +18,7 @@ namespace ProjectName.Core
         private event Action _onTimerResume;
         private event Action<TimerVO> _onTimerUpdate;
         private event Action<TimerVO> _onTimerPause;
-        private event Action _onTimerStop;
-
+        private event Action<TimerVO> _onTimerStop;
         private event Action _onTimerEnd;
 
         public Timer StartTimer(float seconds, Action onStartCallback = null)
@@ -86,7 +85,7 @@ namespace ProjectName.Core
         public Timer StopTimer()
         {
             _timerStarted = false;
-            _onTimerStop?.Invoke();
+            _onTimerStop?.Invoke(new TimerVO(GetCurrentProgress(), GetSecondsPassed(), GetTimeLeft()));
 
             return this;
         }
@@ -146,7 +145,7 @@ namespace ProjectName.Core
             return this;
         }
 
-        public Timer OnTimerStop(Action onStopCallback)
+        public Timer OnTimerStop(Action<TimerVO> onStopCallback)
         {
             _onTimerStop += onStopCallback;
 

@@ -1,5 +1,4 @@
-﻿
-using Assets.Scripts.UI.MainMenuUI;
+﻿using Assets.Scripts.UI.MainMenuUI;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour

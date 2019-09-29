@@ -14,8 +14,7 @@ namespace ProjectName.Core
 
         [SerializeField] private Transform _cornerPoint;
 
-        [Header("HelperForDataSaving")] [SerializeField]
-        private TextMeshProUGUI _levelNumberText;
+        [Header("HelperForDataSaving")]
 
         [SerializeField] private TMP_InputField _input;
         
@@ -126,7 +125,6 @@ namespace ProjectName.Core
         {
             try 
             {
-                Debug.Log($"Start ... {_levelNumberText.text}");
                 Debug.Log("Start Saving...");
                 var s = _input.text;
                 DataSaver.DataSave((int)float.Parse(s), CreateLevelData());
@@ -349,7 +347,7 @@ namespace ProjectName.Core
             {
                 var x = data.Position.x;
                 var y = data.Position.y;
-                if (!_horizontalGrid[y][x].IsEmpty)
+                if (_horizontalGrid[y][x].HasBlock)
                 {
                     if (!(_horizontalGrid[y][x].Block.SecondDirection == data.ConnectorsState.y
                         && _horizontalGrid[y][x].Block.FirstDirection == data.ConnectorsState.x))
@@ -367,7 +365,7 @@ namespace ProjectName.Core
             {
                 var x = data.Position.x;
                 var y = data.Position.y;
-                if (!_verticalGrid[y][x].IsEmpty)
+                if (_verticalGrid[y][x].HasBlock)
                 {
                     if (!(_verticalGrid[y][x].Block.SecondDirection == data.ConnectorsState.y
                           && _verticalGrid[y][x].Block.FirstDirection == data.ConnectorsState.x))

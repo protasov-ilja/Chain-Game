@@ -32,13 +32,4 @@ public class LevelsMenu : MonoBehaviour
 //	}
 //
 //	#endregion
-//
-//	#region Unity Methods
-//	#endregion
-//
-//	#region Public Methods
-//	#endregion
-//
-//	#region Private Methods
-//	#endregion
 }

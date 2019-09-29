@@ -1,5 +1,6 @@
 using ProjectName.Config;
 using ProjectName.Core;
+using ProjectName.Utils;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,7 @@ public class ConfigInstaller : ScriptableObjectInstaller<ConfigInstaller>
     public override void InstallBindings()
     {
         Container.BindInstance(_config);
+        Container.Bind<GenericSceneManager>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
         Container.Bind<GameManager>().FromComponentInNewPrefab(_gameManager).AsSingle().NonLazy();
     }
 }
