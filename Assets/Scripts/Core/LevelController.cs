@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Net.Mime;
+using ProjectName.Core.Enums;
 using ProjectName.UI;
 using ProjectName.UI.WinScreenUI;
 using ProjectName.Utils;
@@ -22,6 +22,11 @@ namespace ProjectName.Core
         [SerializeField] private WinScreen _winScreen;
         [SerializeField] private PauseScreen _pauseScreen;
         [SerializeField] private TextMeshProUGUI _bestTimeText;
+
+        [Header("ToCreateNewLevels")] [SerializeField]
+        private bool _isCreatorMode = false;
+
+        [SerializeField] private GameObject _levelSaver;
         
         private LevelData _levelData;
         private int _currentLevel;
@@ -58,6 +63,38 @@ namespace ProjectName.Core
         
         private void LoadCurrentLevel(LevelData data)
         {
+            if (_isCreatorMode)
+            {
+                _levelSaver.SetActive(true);
+                var blockData = new BlockDataDTO
+                {
+                    Direction = DirectionType.Horizontal,
+                    Position = new Vector2Int(0, 0),
+                    ConnectorsState = new Vector2Int(0, 0)
+                };
+                
+                for (var i = 0; i < 8; ++i)
+                {
+                    var block = GetNewChainBlock(blockData, false);
+                    _panel.AddBlock(block);
+                }
+                
+                blockData = new BlockDataDTO
+                {
+                    Direction = DirectionType.Vertical,
+                    Position = new Vector2Int(0, 0),
+                    ConnectorsState = new Vector2Int(0, 0)
+                };
+                
+                for (var i = 0; i < 8; ++i)
+                {
+                    var block = GetNewChainBlock(blockData, false);
+                    _panel.AddBlock(block);
+                }
+
+                return;
+            }
+            
             foreach (var blockData in data.InitialBlocks)
             {
                 var block = GetNewChainBlock(blockData, true);
@@ -108,7 +145,9 @@ namespace ProjectName.Core
 
         private void ShowWinScreen()
         {
-            _winScreen.Activate((float)_levelTime, _gameManager.GetLevelBestTime(_currentLevel), 3); // TODO: paste here logic of score calculation
+            var score = 3; // TODO: paste here logic of score calculation
+            _gameManager.SaveLevelScore(_currentLevel,score);
+            _winScreen.Activate((float)_levelTime, _gameManager.GetLevelBestTime(_currentLevel), score); 
         }
 
         public void ResumeGame()

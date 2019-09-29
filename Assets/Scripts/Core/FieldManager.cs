@@ -125,7 +125,7 @@ namespace ProjectName.Core
         {
             try 
             {
-                Debug.Log("Start Saving...");
+                Logger.Print("Start Saving...", "yellow");
                 var s = _input.text;
                 DataSaver.DataSave((int)float.Parse(s), CreateLevelData());
             }
@@ -137,7 +137,7 @@ namespace ProjectName.Core
 
         private LevelData CreateLevelData()
         {
-            Debug.Log("Creating Data...");
+            Logger.Print("Creating Data...", "yellow");
             var data = new LevelData();
             data.WinDataHorizontal = new List<BlockDataDTO>();
             data.WinDataVertical = new List<BlockDataDTO>();
@@ -285,7 +285,7 @@ namespace ProjectName.Core
             if (IsVerticalCellExist(y - 1, x)) _verticalGrid[y - 1][x].ConnectionsCount++;
             if (IsVerticalCellExist(y - 1, x + 1)) _verticalGrid[y - 1][x + 1].ConnectionsCount++;
                     
-            Debug.Log($"<color=red>{ _horizontalGrid[y][x].GridPosition }</color>");
+            Logger.Print($"{ _horizontalGrid[y][x].GridPosition }", "red");
             var pos = _horizontalGrid[y][x].transform.position;
             _horizontalGrid[y][x].Connect(block);
                     
@@ -304,7 +304,7 @@ namespace ProjectName.Core
             if (IsHorizontalCellExist(y + 1, x)) _horizontalGrid[y + 1][x].ConnectionsCount++;
             if (IsHorizontalCellExist(y + 1, x - 1)) _horizontalGrid[y + 1][x - 1].ConnectionsCount++;
 
-            Debug.Log($"<color=red>{ _verticalGrid[y][x].GridPosition }</color>");
+            Logger.Print($"{ _verticalGrid[y][x].GridPosition }", "red");
             var pos = _verticalGrid[y][x].transform.position;
             _verticalGrid[y][x].Connect(block);
                     

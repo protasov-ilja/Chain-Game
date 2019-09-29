@@ -14,7 +14,7 @@ namespace ProjectName.Utils
 			{
 				var jsonString = file.text;
 
-				Debug.Log(jsonString);
+				Logger.Print($"{ jsonString }");
 				var data = JsonUtility.FromJson<T>(jsonString);
 
 				return data;
@@ -31,12 +31,12 @@ namespace ProjectName.Utils
 		{
 			var jsonString = JsonUtility.ToJson(data, true);
 			var dataPath = Path.Combine(Application.dataPath, path);
-			Debug.Log(jsonString);
+			Logger.Print($"{ jsonString }");
 			try
 			{
 				using (StreamWriter streamWriter = File.CreateText(dataPath))
 				{
-					Debug.Log(dataPath);
+					Logger.Print($"{ dataPath }");
 					streamWriter.Write(jsonString);
 					streamWriter.Close();
 				}
@@ -50,14 +50,14 @@ namespace ProjectName.Utils
 		public static LevelData LoadLevel(int level)
 		{
 			var file = Resources.Load<TextAsset>($"level{level}");
-			Debug.Log(file);
+			Logger.Print($"{file}");
 			if (file != null)
 			{
 				var jsonString = file.text;
-				Debug.Log(jsonString);
+				Logger.Print($"{jsonString}");
 				var config = JsonUtility.FromJson<LevelData>(jsonString);
 				
-				Debug.Log(config);
+				Logger.Print($"{config}");
 				return config;
 			}
 			
@@ -69,12 +69,12 @@ namespace ProjectName.Utils
 			data.TimeLimit = 30;
 			var jsonString = JsonUtility.ToJson(data, true);
 			var dataPath = Path.Combine(Application.dataPath, "Resources", $"level{level}.json");
-			Debug.Log(jsonString);
+			Logger.Print($"{jsonString}");
 			try
 			{
 				using (StreamWriter streamWriter = File.CreateText(dataPath))
 				{
-					Debug.Log(dataPath);
+					Logger.Print($"{dataPath}");
 					streamWriter.Write(jsonString);
 					streamWriter.Close();
 				}

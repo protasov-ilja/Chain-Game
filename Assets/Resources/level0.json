@@ -8,7 +8,7 @@
             },
             "_connectorsState": {
                 "x": 0,
-                "y": 0
+                "y": -1
             }
         },
         {
@@ -19,7 +19,7 @@
             },
             "_connectorsState": {
                 "x": 0,
-                "y": 0
+                "y": 2
             }
         },
         {
@@ -29,7 +29,7 @@
                 "y": 2
             },
             "_connectorsState": {
-                "x": 0,
+                "x": -1,
                 "y": 0
             }
         },
@@ -40,7 +40,7 @@
                 "y": 2
             },
             "_connectorsState": {
-                "x": 0,
+                "x": 1,
                 "y": 0
             }
         }
@@ -54,7 +54,7 @@
             },
             "_connectorsState": {
                 "x": 0,
-                "y": 0
+                "y": -1
             }
         },
         {
@@ -64,8 +64,8 @@
                 "y": 1
             },
             "_connectorsState": {
-                "x": 0,
-                "y": 0
+                "x": 1,
+                "y": 1
             }
         },
         {
@@ -75,8 +75,8 @@
                 "y": 2
             },
             "_connectorsState": {
-                "x": 0,
-                "y": 0
+                "x": -1,
+                "y": -1
             }
         },
         {
@@ -86,90 +86,12 @@
                 "y": 3
             },
             "_connectorsState": {
-                "x": 0,
-                "y": 0
+                "x": 2,
+                "y": 1
             }
         }
     ],
-    "_initialBlocks": [],
-    "_blocksOnPanel": [
-        {
-            "_direction": 1,
-            "_position": {
-                "x": 3,
-                "y": 0
-            },
-            "_connectorsState": {
-                "x": 0,
-                "y": 0
-            }
-        },
-        {
-            "_direction": 1,
-            "_position": {
-                "x": 2,
-                "y": 0
-            },
-            "_connectorsState": {
-                "x": 0,
-                "y": 0
-            }
-        },
-        {
-            "_direction": 1,
-            "_position": {
-                "x": 3,
-                "y": 2
-            },
-            "_connectorsState": {
-                "x": 0,
-                "y": 0
-            }
-        },
-        {
-            "_direction": 1,
-            "_position": {
-                "x": 2,
-                "y": 2
-            },
-            "_connectorsState": {
-                "x": 0,
-                "y": 0
-            }
-        },
-        {
-            "_direction": 0,
-            "_position": {
-                "x": 0,
-                "y": 1
-            },
-            "_connectorsState": {
-                "x": 0,
-                "y": 0
-            }
-        },
-        {
-            "_direction": 0,
-            "_position": {
-                "x": 0,
-                "y": 0
-            },
-            "_connectorsState": {
-                "x": 0,
-                "y": 0
-            }
-        },
-        {
-            "_direction": 0,
-            "_position": {
-                "x": 0,
-                "y": 2
-            },
-            "_connectorsState": {
-                "x": 0,
-                "y": 0
-            }
-        },
+    "_initialBlocks": [
         {
             "_direction": 0,
             "_position": {
@@ -177,8 +99,87 @@
                 "y": 3
             },
             "_connectorsState": {
+                "x": 2,
+                "y": 1
+            }
+        },
+        {
+            "_direction": 1,
+            "_position": {
+                "x": 3,
+                "y": 0
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": 2
+            }
+        }
+    ],
+    "_blocksOnPanel": [
+        {
+            "_direction": 0,
+            "_position": {
+                "x": 0,
+                "y": 1
+            },
+            "_connectorsState": {
+                "x": 1,
+                "y": 1
+            }
+        },
+        {
+            "_direction": 0,
+            "_position": {
+                "x": 0,
+                "y": 2
+            },
+            "_connectorsState": {
+                "x": -1,
+                "y": -1
+            }
+        },
+        {
+            "_direction": 1,
+            "_position": {
+                "x": 3,
+                "y": 2
+            },
+            "_connectorsState": {
+                "x": 1,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 1,
+            "_position": {
+                "x": 2,
+                "y": 0
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": -1
+            }
+        },
+        {
+            "_direction": 1,
+            "_position": {
+                "x": 2,
+                "y": 2
+            },
+            "_connectorsState": {
+                "x": -1,
+                "y": 0
+            }
+        },
+        {
+            "_direction": 0,
+            "_position": {
                 "x": 0,
                 "y": 0
+            },
+            "_connectorsState": {
+                "x": 0,
+                "y": -1
             }
         }
     ],

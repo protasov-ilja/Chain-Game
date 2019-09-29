@@ -1,47 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProjectName.Core;
+using ProjectName.Utils;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.UI.LevelMenuUI
 {
 	public sealed class LevelPanel : MonoBehaviour
 	{
-		const string ProgressKey = "LevelProgress"; 
+		[Inject] private GameManager _gameManager;
+		[Inject] private GenericSceneManager _sceneManager;
 
 		[SerializeField] private int _levelNumber;
 		[SerializeField] private TextMeshProUGUI _levelText;
 		[SerializeField] private List<GameObject> _activeStars;
 
-		public event Action<int> ChooseLevelButtonPressed;
-
 		public void Initilize(int levelNumber)
 		{
+			UpdatePanel(levelNumber);
 			_levelNumber = levelNumber;
-			var progress = PlayerPrefs.GetInt($"{ProgressKey}{levelNumber}", 0);
+			var progress = _gameManager.GetLevelScore(levelNumber);
 			for (var i = 0; i < _activeStars.Count; ++i)
 			{
 				_activeStars[i].SetActive(i < progress);
 			}
 		}
 
-		public void UpdatePanel(int levelNumber)
+		private void UpdatePanel(int levelNumber)
 		{
-			_levelText.text = levelNumber.ToString();
+			_levelText.text = (levelNumber + 1).ToString();
 		}
 
 		public void PressStartThisLevel()
 		{
-			ChooseLevelButtonPressed?.Invoke(_levelNumber);
-		}
-
-		public void UpdateState()
-		{
-			var progress = PlayerPrefs.GetInt($"{ProgressKey}{_levelNumber}", 0);
-			for (var i = 0; i < _activeStars.Count; ++i)
-			{
-				_activeStars[i].SetActive(i < progress);
-			}
+			_gameManager.SetActiveLevel(_levelNumber);
+			_sceneManager.LoadSceneAsync("SampleScene");
 		}
 	}
 }

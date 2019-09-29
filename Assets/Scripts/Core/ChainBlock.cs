@@ -161,7 +161,6 @@ namespace ProjectName.Core
 
         public void SetConnectorsState(Vector2Int sideDirections)
         {
-            Debug.Log(sideDirections);
             SetFirstRotation(sideDirections.x);
             SetSecondRotation(sideDirections.y);
         }
