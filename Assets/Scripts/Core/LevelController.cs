@@ -145,8 +145,18 @@ namespace ProjectName.Core
 
         private void ShowWinScreen()
         {
-            var score = 3; // TODO: paste here logic of score calculation
-            _gameManager.SaveLevelScore(_currentLevel,score);
+            var score = 3;
+            var coeff = _levelTime / _levelData.TimeLimit;
+            if (coeff > 0.3f && coeff < 0.5f) // TODO: paste here logic of score calculation
+            {
+                score = 2;
+            }
+            else if (coeff <= 0.3f)
+            {
+                score = 1;
+            }
+
+            _gameManager.SaveLevelScore(_currentLevel, score);
             _winScreen.Activate((float)_levelTime, _gameManager.GetLevelBestTime(_currentLevel), score); 
         }
 

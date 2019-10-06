@@ -24,7 +24,7 @@ namespace ProjectName.Core
         {
             Debug.Log(level);
             _currentLevel = level;
-            if (_currentLevel >= _levelsAmount)
+            if (_currentLevel > _levelsAmount)
             {
                 _currentLevel = 0;
             }
@@ -39,7 +39,10 @@ namespace ProjectName.Core
 
         public void SaveLevelScore(int level, int score)
         {
-            PlayerPrefs.SetInt($"Score_{level}", score);
+            if (PlayerPrefs.GetInt($"Score_{level}", 0) < score)
+            {
+                PlayerPrefs.SetInt($"Score_{level}", score);
+            }
         }
 
         public int GetLevelScore(int level)
